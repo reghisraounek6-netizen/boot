@@ -4,7 +4,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 import urllib.request
 import json
 
-BOT_TOKEN = "YOUR_BOT_TOKEN"  # من @BotFather
+BOT_TOKEN = "8946579180:AAGDJD4WL_8ZNaII7jiD8-27hAOao5HqBfo"  # من @BotFather
 
 logging.basicConfig(level=logging.INFO)
 
