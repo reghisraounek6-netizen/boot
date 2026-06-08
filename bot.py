@@ -2,6 +2,7 @@ import logging
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 import urllib.request
+import urllib.parse
 import json
 
 BOT_TOKEN = "8946579180:AAGDJD4WL_8ZNaII7jiD8-27hAOao5HqBfo"  # من @BotFather
@@ -30,8 +31,6 @@ def search_anime(query):
         pass
     return None
 
-import urllib.parse
-
 # ==================== الأوامر ====================
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -57,7 +56,7 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if result:
         msg = (
             f"🎌 *{result['title']}*\n\n"
-            f"⭐ التقييم: {result['score']}/10\n"
+            f"⭐️ التقييم: {result['score']}/10\n"
             f"📺 الحلقات: {result['episodes']}\n"
             f"📌 الحالة: {result['status']}\n\n"
             f"📝 {result['synopsis']}...\n\n"
@@ -78,7 +77,7 @@ async def top_anime(update: Update, context: ContextTypes.DEFAULT_TYPE):
             data = json.loads(r.read())
         msg = "🏆 *أفضل 5 أنميات على MyAnimeList:*\n\n"
         for i, a in enumerate(data["data"], 1):
-            msg += f"{i}. *{a['title']}* — ⭐ {a.get('score', '؟')}\n"
+            msg += f"{i}. *{a['title']}* — ⭐️ {a.get('score', '؟')}\n"
         await update.message.reply_text(msg, parse_mode="Markdown")
     except:
         await update.message.reply_text("❌ حدث خطأ، حاول لاحقاً.")
@@ -91,18 +90,17 @@ async def seasonal(update: Update, context: ContextTypes.DEFAULT_TYPE):
             data = json.loads(r.read())
         msg = "🌸 *أنميات الموسم الحالي:*\n\n"
         for a in data["data"][:5]:
-            msg += f"• *{a['title']}* — ⭐ {a.get('score') or 'جديد'}\n"
+            msg += f"• *{a['title']}* — ⭐️ {a.get('score') or 'جديد'}\n"
         await update.message.reply_text(msg, parse_mode="Markdown")
     except:
         await update.message.reply_text("❌ حدث خطأ، حاول لاحقاً.")
-
-async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
+        async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.message.text
     result = search_anime(query)
     if result:
         msg = (
             f"🎌 *{result['title']}*\n\n"
-            f"⭐ {result['score']}/10 | 📺 {result['episodes']} حلقة\n\n"
+            f"⭐️ {result['score']}/10 | 📺 {result['episodes']} حلقة\n\n"
             f"📝 {result['synopsis']}...\n\n"
             f"🔗 [MyAnimeList]({result['url']})"
         )
@@ -125,5 +123,6 @@ def main():
     print("✅ البوت يعمل...")
     app.run_polling()
 
-if __name__ == "__main__":
+# التصحيح هنا: إضافة الـ Double Underscores
+if name == "main":
     main()
